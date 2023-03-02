@@ -38,7 +38,7 @@ export const Example = () => {
     },
     {
       type: "grid",
-      value: [
+      content: [
         { type: "field", label: "出货仓库", value: "xxxx", span: 4 },
         { type: "field", label: "送货人员", value: "xxxx", span: 4 },
         { type: "field", label: "大写合计", value: "xxxx", span: 4 },
