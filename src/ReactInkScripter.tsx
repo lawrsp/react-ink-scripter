@@ -179,7 +179,8 @@ const Field = ({ value, label }: ContentFieldItem) => {
   );
 };
 
-export const ReactInkScripter = ({ value = [] }: ReactInkScripterProps) => {
+export const ReactInkScripter = (props: ReactInkScripterProps) => {
+  const { value = [] } = props;
   return (
     <div className="ink-scripter-root">
       {value.map((item, index) => {
