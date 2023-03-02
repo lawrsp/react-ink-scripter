@@ -1,33 +1,24 @@
 import clsx from "clsx";
 
-enum ContentItemKind {
-  TITLE = "title",
-  GRID = "grid",
-  TABLE = "table",
-  FOOTER = "footer",
-  TEXT = "text",
-  FILED = "field",
-}
-
 export type ContentTitleItem = {
-  type: ContentItemKind.TITLE;
+  type: "title";
   value: string;
 };
 
 export type ContentFieldItem = {
-  type: ContentItemKind.FILED;
+  type: "field";
   label: string;
   value: string;
   span?: number;
 };
 export type ContentTextItem = {
-  type: ContentItemKind.TEXT;
+  type: "text";
   value: string;
   span?: number;
 };
 
 export type ContentContainerItem = {
-  type: ContentItemKind.GRID | ContentItemKind.FOOTER;
+  type: "grid" | "footer";
   content: (ContentFieldItem | ContentTextItem)[];
 };
 
@@ -41,7 +32,7 @@ export type ContentTableCellItem =
   | string;
 
 export type ContentTableItem = {
-  type: ContentItemKind.TABLE;
+  type: "table";
   head?: ContentTableCellItem[];
   body?: ContentTableCellItem[][];
   foot?: ContentTableCellItem[];
@@ -72,9 +63,9 @@ const Container = ({
     <div className={clsx("ink-scripter-container", className)}>
       {content.map((item, idx) => {
         switch (item.type) {
-          case ContentItemKind.FILED:
+          case "field":
             return <Field key={idx} {...item} />;
-          case ContentItemKind.TEXT:
+          case "text":
             return <Text key={idx} {...item} />;
         }
       })}
@@ -193,17 +184,17 @@ export const ReactInkScripter = ({ value = [] }: ReactInkScripterProps) => {
     <div className="ink-scripter-root">
       {value.map((item, index) => {
         switch (item.type) {
-          case ContentItemKind.TITLE:
+          case "title":
             return <Title key={index} {...item} />;
-          case ContentItemKind.FOOTER:
+          case "footer":
             return <Footer key={index} {...item} />;
-          case ContentItemKind.GRID:
+          case "grid":
             return <Grid key={index} {...item} />;
-          case ContentItemKind.TABLE:
+          case "table":
             return <Table key={index} {...item} />;
-          case ContentItemKind.TEXT:
+          case "text":
             return <Text key={index} {...item} />;
-          case ContentItemKind.FILED:
+          case "field":
             return <Field key={index} {...item} />;
         }
       })}

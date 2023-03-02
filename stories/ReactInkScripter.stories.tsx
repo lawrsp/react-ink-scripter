@@ -7,7 +7,7 @@ export default {
 };
 
 export const Example = () => {
-  const value = [
+  const value: ContentType = [
     { type: "title", value: "销售单据" },
     {
       type: "grid",
@@ -27,7 +27,7 @@ export const Example = () => {
           { header: true, value: "产品名称" },
           { header: true, value: "规格" },
           { header: true, value: "数量" },
-          { header: true, valued: "单价" },
+          { header: true, value: "单价" },
           { header: true, value: "金额" },
         ],
         ["ha1", "hb1", "hc1", "hd1", "he1"],
@@ -53,7 +53,7 @@ export const Example = () => {
         { type: "text", value: "仓库地址：xxxxxxxxxx", span: 4 },
       ],
     },
-  ] as ContentType;
+  ];
 
   return <ReactInkScripter value={value} />;
 };
