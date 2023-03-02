@@ -9,14 +9,6 @@ enum ContentItemKind {
   FILED = "field",
 }
 
-/* export type ContentItemKind =
- *   | "title"
- *   | "grid"
- *   | "table"
- *   | "footer"
- *   | "text"
- *   | "field"; */
-
 export type ContentTitleItem = {
   type: ContentItemKind.TITLE;
   value: string;
@@ -68,7 +60,7 @@ export type ReactInkScripterProps = {
 };
 
 const Title = ({ value }: ContentTitleItem) => {
-  return <div>"title": {JSON.stringify(value)}</div>;
+  return <div>{value}</div>;
 };
 
 const Container = ({
@@ -183,15 +175,16 @@ const Table = (props: ContentTableItem) => {
   );
 };
 
-const Text = ({ value }: ContentTextItem) => {
-  return (
-    <div className="ink-scripter-text">"text": {JSON.stringify(value)}</div>
-  );
+const Text = ({ value, span }: ContentTextItem) => {
+  return <div className="ink-scripter-text">{value}</div>;
 };
 
-const Field = ({ value }: ContentFieldItem) => {
+const Field = ({ value, label }: ContentFieldItem) => {
   return (
-    <div className="ink-scripter-filed">"field": {JSON.stringify(value)}</div>
+    <div className="ink-scripter-filed">
+      <label>{label}:</label>
+      <span>{value}</span>
+    </div>
   );
 };
 
