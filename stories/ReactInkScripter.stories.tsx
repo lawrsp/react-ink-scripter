@@ -1,7 +1,7 @@
 import * as React from "react";
-import { ReactInkScripter, ContentType } from "../src";
+import { ReactInkScripter, ContentType, PrinterFrame } from "../src";
 import "./ReactInkScripter.stories.css";
-import defaultCss from "./ReactInkScripter.stories.css";
+import defaultCss from "./ReactInkScripter.stories.css?inline";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -88,8 +88,12 @@ export const Example = () => {
 };
 
 export const Print = () => {
-  const handleClickPrint = () => {};
   const [css, setCss] = React.useState(defaultCss);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickPrint = () => {
+    setOpen(true);
+  };
 
   return (
     <div>
@@ -102,6 +106,7 @@ export const Print = () => {
           value={css}
           onChange={(ev) => setCss(ev.target.value)}
         />
+        <PrinterFrame styleCss={css} value={defaultValue} open={open} />
       </div>
     </div>
   );
