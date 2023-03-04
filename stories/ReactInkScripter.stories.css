@@ -1,0 +1,121 @@
+
+.ink-scripter-root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.ink-scripter-title{
+  text-align: center;
+  flex: 1 0;
+  padding: 16px;
+  font-size: 20px;
+}
+
+.ink-scripter-footer {
+  margin-left: -8px;
+}
+
+.ink-scripter-grid {
+  --Grid-Columns: 12;
+  --Grid-RowSpacing: 8px;
+  --Grid-ColumnSpacing: 32px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  flex-direction: row;
+
+  flex-wrap: wrap;
+
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.ink-scripter-grid-item {
+  flex-basis: auto;
+  flex-grow: 0;
+  padding: calc(var(--Grid-RowSpacing) / 2) calc(var(--Grid-ColumnSpacing) / 2);
+}
+
+.ink-scripter-field {
+  display: flex;
+  flex-direction: row;
+}
+
+.ink-scripter-field-label {
+}
+
+.ink-scripter-field-value{
+  margin-left: 16px;
+}
+
+.ink-scripter-span-1 {
+  width: calc(100% * 1 / var(--Grid-Columns));
+}
+.ink-scripter-span-2 {
+  width: calc(100% * 2 / var(--Grid-Columns));
+}
+.ink-scripter-span-3 {
+  width: calc(100% * 3 / var(--Grid-Columns));
+}
+.ink-scripter-span-4 {
+  width: calc(100% * 4 / var(--Grid-Columns));
+}
+.ink-scripter-span-5 {
+  width: calc(100% * 5 / var(--Grid-Columns));
+}
+.ink-scripter-span-6 {
+  width: calc(100% * 6 / var(--Grid-Columns));
+}
+.ink-scripter-span-7 {
+  width: calc(100% * 7 / var(--Grid-Columns));
+}
+.ink-scripter-span-8 {
+  width: calc(100% * 8 / var(--Grid-Columns));
+}
+.ink-scripter-span-9 {
+  width: calc(100% * 9 / var(--Grid-Columns));
+}
+.ink-scripter-span-10 {
+  width: calc(100% * 10 / var(--Grid-Columns));
+}
+.ink-scripter-span-11 {
+  width: calc(100% * 11 / var(--Grid-Columns));
+}
+.ink-scripter-span-12 {
+  width: calc(100% * 12 / var(--Grid-Columns));
+}
+
+.ink-scripter-table {
+  --Border-Props: 0.8px solid #bbb;
+  margin: 8px 0;
+  padding: 0;
+  text-align: left;
+  border-spacing: 0;
+
+  border-top: var(--Border-Props);
+  border-left: var(--Border-Props);
+}
+
+
+.ink-scripter-table-head {
+}
+.ink-scripter-table-body{
+}
+.ink-scripter-table-foot{
+}
+
+.ink-scripter-table-row {
+}
+
+.ink-scripter-cell {
+  padding: 8px 4px;
+  margin: 0;
+  border-right: var(--Border-Props);
+  border-bottom: var(--Border-Props);
+}
+

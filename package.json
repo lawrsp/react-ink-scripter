@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/lawrsp/react-ink-scripter#readme",
   "scripts": {
-    "dev": "vite",
+    "dev": "start-storybook -p 6016",
     "prepack": "json -f package.json -I -e \"delete this.devDependencies;delete this.scripts;\"",
     "build": "rimraf dist && rollup -c",
     "preview": "vite preview",
