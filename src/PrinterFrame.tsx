@@ -1,50 +1,48 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { createPortal } from "react-dom";
-import { ReactInkScripter } from "./ReactInkScripter";
+import clsx from "clsx";
+import "./PrinterFrame.css";
 
 export interface PrinterFrameProps {
   styleCss?: string;
   open?: boolean;
-  value?: ContentType;
+  className?: string;
+  children?: ReactNode;
 }
 
-/* const PrintContentWithChildren = ({value?: ContentType, children?: ReactNode}) => {
- *     return <div>
- *     </div>
- * }; */
-
 export const PrinterFrame = (props: PrinterFrameProps) => {
-  const { styleCss, value, open } = props;
-  const [node, setNode] = useState();
-  console.log("node===", node, node?.contentWindow.document);
+  const { styleCss, open, className, children } = props;
+  const [node, setNode] = useState<HTMLIFrameElement | null>();
 
   return (
     <iframe
       ref={setNode}
-      style={{
-        display: open ? "block" : "none",
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#fff",
-      }}
+      className={clsx(
+        "inks-iframe-root",
+        !!open && "inks-iframe-root-open",
+        className
+      )}
     >
-      {node &&
-        node.contentWindow?.document?.body &&
+      {node?.contentWindow?.document?.body &&
+        createPortal(children, node?.contentWindow?.document?.body)}
+      {node?.contentWindow?.document?.head &&
         createPortal(
-          <ReactInkScripter value={value} />,
-          node.contentWindow?.document?.body
-        )}
-      {node &&
-        node.contentWindow?.document?.head &&
-        createPortal(
-          <style>{styleCss}</style>,
-          node.contentWindow?.document?.head
+          <style>
+            {`@media print {
+              .hidden-print {
+               display: none !important;
+              }
+             }`}
+            {styleCss}
+          </style>,
+          node?.contentWindow?.document?.head
         )}
     </iframe>
   );
 };
+
+/* export const PrinterFrame = (props: PrinterFrameProps) => {
+ *   return createPortal(<PrinterFrameRoot {...props} />, document.body);
+ * }; */
 
 export default PrinterFrame;

@@ -55,6 +55,7 @@ export type ContentType = (
 
 export type ReactInkScripterProps = {
   value?: ContentType;
+  className?: string;
 };
 
 export type TypeWithClassName<T> = T & {
@@ -63,7 +64,7 @@ export type TypeWithClassName<T> = T & {
 
 const Title = ({ value, id }: ContentTitleItem) => {
   return (
-    <div id={id} className="ink-scripter-title">
+    <div id={id} className="inks-title">
       {value}
     </div>
   );
@@ -76,17 +77,13 @@ const Container = ({
 }: Partial<ContentContainerItem> & { className?: string }) => {
   console.log("content =====", content);
   return (
-    <div id={id} className={clsx("ink-scripter-grid", className)}>
+    <div id={id} className={clsx("inks-grid", className)}>
       {content.map((item, idx) => {
         switch (item.type) {
           case "field":
-            return (
-              <Field key={idx} className="ink-scripter-grid-item" {...item} />
-            );
+            return <Field key={idx} className="inks-grid-item" {...item} />;
           case "text":
-            return (
-              <Text key={idx} className="ink-scripter-grid-item" {...item} />
-            );
+            return <Text key={idx} className="inks-grid-item" {...item} />;
         }
       })}
     </div>
@@ -98,35 +95,25 @@ const Grid = (props: ContentContainerItem) => {
 };
 
 const Footer = (props: ContentContainerItem) => {
-  return <Container {...props} className="ink-scripter-footer" />;
+  return <Container {...props} className="inks-footer" />;
 };
 
 const TableCell = ({ item }: { item: ContentTableCellItem }) => {
   if (typeof item === "string") {
-    return <td className="ink-scripter-cell">{item}</td>;
+    return <td className="inks-cell">{item}</td>;
   }
 
   const { id, header, colSpan, rowSpan, value } = item;
   if (header) {
     return (
-      <th
-        id={id}
-        className="ink-scripter-cell"
-        colSpan={colSpan}
-        rowSpan={rowSpan}
-      >
+      <th id={id} className="inks-cell" colSpan={colSpan} rowSpan={rowSpan}>
         {value}
       </th>
     );
   }
 
   return (
-    <td
-      id={id}
-      className="ink-scripter-cell"
-      colSpan={colSpan}
-      rowSpan={rowSpan}
-    >
+    <td id={id} className="inks-cell" colSpan={colSpan} rowSpan={rowSpan}>
       {value}
     </td>
   );
@@ -137,7 +124,7 @@ const TableRow = ({ cells }: { cells: ContentTableCellItem[] }) => {
     return null;
   }
   return (
-    <tr className="ink-scripter-table-row">
+    <tr className="inks-table-row">
       {cells.map((v, idx) => (
         <TableCell item={v} key={idx} />
       ))}
@@ -152,7 +139,7 @@ const TableHead = (props: { cells?: ContentTableCellItem[] }) => {
   }
 
   return (
-    <thead className="ink-scripter-table-head">
+    <thead className="inks-table-head">
       {cells.map((v, idx) => (
         <TableCell key={idx} item={v} />
       ))}
@@ -167,7 +154,7 @@ const TableFoot = (props: { cells?: ContentTableCellItem[] }) => {
   }
 
   return (
-    <tfoot className="ink-scripter-table-foot">
+    <tfoot className="inks-table-foot">
       {cells.map((v, idx) => (
         <TableCell key={idx} item={v} />
       ))}{" "}
@@ -182,7 +169,7 @@ const TableBody = (props: { rows?: ContentTableCellItem[][] }) => {
   }
 
   return (
-    <tbody className="ink-scripter-table-body">
+    <tbody className="inks-table-body">
       {rows.map((v, idx) => (
         <TableRow key={idx} cells={v} />
       ))}
@@ -196,7 +183,7 @@ const Table = (props: ContentTableItem) => {
     return null;
   }
   return (
-    <table id={id} className="ink-scripter-table">
+    <table id={id} className="inks-table">
       <TableHead cells={head} />
       <TableBody rows={body} />
       <TableFoot cells={foot} />
@@ -214,9 +201,9 @@ const Text = ({
     <div
       id={id}
       className={clsx(
-        "ink-scripter-text",
-        span && "ink-scripter-grid",
-        span && `ink-scripter-span-${span}`,
+        "inks-text",
+        span && "inks-grid",
+        span && `inks-span-${span}`,
         className
       )}
     >
@@ -236,22 +223,22 @@ const Field = ({
     <div
       id={id}
       className={clsx(
-        "ink-scripter-field",
-        span && "ink-scripter-grid",
-        span && `ink-scripter-span-${span}`,
+        "inks-field",
+        span && "inks-grid",
+        span && `inks-span-${span}`,
         className
       )}
     >
-      <label className="ink-scripter-field-label">{label}:</label>
-      <div className="ink-scripter-field-value">{value}</div>
+      <label className="inks-field-label">{label}:</label>
+      <div className="inks-field-value">{value}</div>
     </div>
   );
 };
 
 export const ReactInkScripter = (props: ReactInkScripterProps) => {
-  const { value = [] } = props;
+  const { value = [], className } = props;
   return (
-    <div className="ink-scripter-root">
+    <div className={clsx("inks-root", className)}>
       {value.map((item, index) => {
         switch (item.type) {
           case "title":

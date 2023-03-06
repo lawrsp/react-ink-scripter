@@ -106,8 +106,10 @@ export const Print = () => {
           value={css}
           onChange={(ev) => setCss(ev.target.value)}
         />
-        <PrinterFrame styleCss={css} value={defaultValue} open={open} />
       </div>
+      <PrinterFrame styleCss={css} open={open}>
+        <ReactInkScripter value={defaultValue} />
+      </PrinterFrame>
     </div>
   );
 };
