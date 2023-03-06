@@ -1,2 +1,2 @@
-export * from "./ReactInkScripter";
 export * from "./PrinterFrame";
+export * from "./InkScripter";

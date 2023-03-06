@@ -133,7 +133,7 @@ const TableRow = ({ cells }: { cells: ContentTableCellItem[] }) => {
 };
 
 const TableHead = (props: { cells?: ContentTableCellItem[] }) => {
-  const { cells, id } = props;
+  const { cells } = props;
   if (!cells || !cells.length) {
     return null;
   }
@@ -235,7 +235,7 @@ const Field = ({
   );
 };
 
-export const ReactInkScripter = (props: ReactInkScripterProps) => {
+export const InkScripter = (props: ReactInkScripterProps) => {
   const { value = [], className } = props;
   return (
     <div className={clsx("inks-root", className)}>
@@ -259,4 +259,4 @@ export const ReactInkScripter = (props: ReactInkScripterProps) => {
   );
 };
 
-export default ReactInkScripter;
+export default InkScripter;

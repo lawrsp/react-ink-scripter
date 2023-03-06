@@ -1,7 +1,6 @@
 import { ReactNode, useState } from "react";
 import { createPortal } from "react-dom";
 import clsx from "clsx";
-import "./PrinterFrame.css";
 
 export interface PrinterFrameProps {
   styleCss?: string;
@@ -14,6 +13,9 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
   const { styleCss, open, className, children } = props;
   const [node, setNode] = useState<HTMLIFrameElement | null>();
 
+  const attachBody = node?.contentWindow?.document?.body;
+  const attachHead = node?.contentWindow?.document?.head;
+
   return (
     <iframe
       ref={setNode}
@@ -23,9 +25,8 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
         className
       )}
     >
-      {node?.contentWindow?.document?.body &&
-        createPortal(children, node?.contentWindow?.document?.body)}
-      {node?.contentWindow?.document?.head &&
+      {attachBody && createPortal(children, attachBody)}
+      {attachHead &&
         createPortal(
           <style>
             {`@media print {
@@ -35,7 +36,7 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
              }`}
             {styleCss}
           </style>,
-          node?.contentWindow?.document?.head
+          attachHead
         )}
     </iframe>
   );

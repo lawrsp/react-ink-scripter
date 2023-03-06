@@ -65,8 +65,8 @@ export default [
       typescript({
         compilerOptions: {
           declaration: true,
-          declarationDir: "dist",
           noEmit: false,
+          declarationDir: "dist/esm",
         },
         // tsconfig.json
       }),
@@ -77,7 +77,7 @@ export default [
     ],
     output: [
       {
-        dir: "dist",
+        dir: "dist/esm",
         format: "es",
         exports: "named",
       },

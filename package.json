@@ -1,10 +1,10 @@
 {
   "name": "react-ink-scripter",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "a react component for generate page to print",
   "main": "dist/cjs/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lawrsp/react-ink-scripter.git"
@@ -19,7 +19,8 @@
   "scripts": {
     "dev": "start-storybook -p 6016",
     "prepack": "json -f package.json -I -e \"delete this.devDependencies;delete this.scripts;\"",
-    "build": "rimraf dist && rollup -c",
+    "build": "rimraf dist && rollup -c && yarn copy-styles",
+    "copy-styles": "node ./copy-styles.mjs",
     "preview": "vite preview",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

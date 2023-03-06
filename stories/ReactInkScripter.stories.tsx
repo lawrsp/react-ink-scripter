@@ -1,12 +1,12 @@
 import * as React from "react";
-import { ReactInkScripter, ContentType, PrinterFrame } from "../src";
-import "./ReactInkScripter.stories.css";
-import defaultCss from "./ReactInkScripter.stories.css?inline";
+import { InkScripter, ContentType, PrinterFrame } from "../src";
+import "../src/PrinterFrame.css";
+import defaultCss from "../src/InkScripter.css?inline";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Example/InkScripter",
-  component: ReactInkScripter,
+  component: InkScripter,
 };
 
 const defaultValue: ContentType = [
@@ -81,7 +81,7 @@ export const Example = () => {
       />
 
       <div style={{ width: "100%", border: "1px solid black" }}>
-        <ReactInkScripter value={value} />
+        <InkScripter value={value} />
       </div>
     </div>
   );
@@ -108,7 +108,7 @@ export const Print = () => {
         />
       </div>
       <PrinterFrame styleCss={css} open={open}>
-        <ReactInkScripter value={defaultValue} />
+        <InkScripter value={defaultValue} />
       </PrinterFrame>
     </div>
   );
