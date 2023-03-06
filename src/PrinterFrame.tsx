@@ -12,10 +12,13 @@ export interface PrinterFrameProps {
   className?: string;
   children?: ReactNode;
   actionRef?: Ref<PrinterActions>;
+  src?: string;
+  containerId?: string;
 }
 
 export const PrinterFrame = (props: PrinterFrameProps) => {
-  const { styleCss, open, className, children, actionRef } = props;
+  const { styleCss, open, className, children, actionRef, src, containerId } =
+    props;
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useImperativeHandle(
@@ -34,8 +37,11 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
     []
   );
 
-  const attachBody = iframeRef?.current?.contentWindow?.document?.body;
-  const attachHead = iframeRef?.current?.contentWindow?.document?.head;
+  const attachNode = containerId
+    ? iframeRef?.current?.contentWindow?.document?.getElementById(containerId)
+    : iframeRef?.current?.contentWindow?.document?.body;
+
+  const attachStyle = iframeRef?.current?.contentWindow?.document?.head;
 
   return (
     <iframe
@@ -45,9 +51,9 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
         !!open && "inks-iframe-root-open",
         className
       )}
+      src={src}
     >
-      {!!attachBody && createPortal(children, attachBody)}
-      {!!attachHead &&
+      {!!attachStyle &&
         createPortal(
           <style>
             {`
@@ -59,8 +65,9 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
           `}
             {styleCss}
           </style>,
-          attachHead
+          attachStyle
         )}
+      {!!attachNode && createPortal(children, attachNode)}
     </iframe>
   );
 };
