@@ -1,6 +1,6 @@
 {
   "name": "react-ink-scripter",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "a react component for generate page to print",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/lawrsp/react-ink-scripter.git"
   },
-  "keywords": ["react", "component", "printer"],
+  "keywords": ["react", "component", "print", "printer", "iframe"],
   "author": "lawrsp",
   "license": "MIT",
   "bugs": {

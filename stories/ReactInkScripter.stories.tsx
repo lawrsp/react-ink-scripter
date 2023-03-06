@@ -1,5 +1,5 @@
 import * as React from "react";
-import { InkScripter, ContentType, PrinterFrame } from "../src";
+import { InkScripter, ContentType, PrinterFrame, PrinterActions } from "../src";
 import "../src/PrinterFrame.css";
 import defaultCss from "../src/InkScripter.css?inline";
 
@@ -90,14 +90,22 @@ export const Example = () => {
 export const Print = () => {
   const [css, setCss] = React.useState(defaultCss);
   const [open, setOpen] = React.useState(false);
+  const ref = React.useRef<PrinterActions>();
+
+  const handleOpenPrint = () => {
+    setOpen(true);
+  };
+  const handleClosePrint = () => {
+    setOpen(false);
+  };
 
   const handleClickPrint = () => {
-    setOpen(true);
+    ref?.current.print();
   };
 
   return (
     <div>
-      <button onClick={handleClickPrint}> 打印 </button>
+      <button onClick={handleOpenPrint}> 打印 </button>
       <div>
         <div>custom styles:</div>
         <textarea
@@ -107,7 +115,11 @@ export const Print = () => {
           onChange={(ev) => setCss(ev.target.value)}
         />
       </div>
-      <PrinterFrame styleCss={css} open={open}>
+      <PrinterFrame styleCss={css} open={open} actionRef={ref}>
+        <div className="hidden-print">
+          <button onClick={handleClickPrint}>打印</button>
+          <button onClick={handleClosePrint}>关闭</button>
+        </div>
         <InkScripter value={defaultValue} />
       </PrinterFrame>
     </div>
