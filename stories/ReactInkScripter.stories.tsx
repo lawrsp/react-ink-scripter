@@ -1,4 +1,5 @@
 import * as React from "react";
+import * as ReactDom from "react-dom";
 import { InkScripter, ContentType, PrinterFrame, PrinterActions } from "../src";
 import "../src/PrinterFrame.css";
 import defaultCss from "../src/InkScripter.css?inline";
@@ -10,26 +11,28 @@ export default {
 };
 
 const defaultValue: ContentType = [
-  { type: "title", value: "销售单据" },
+  { type: "text", id: "title", value: "销售单据" },
   {
     type: "grid",
     content: [
-      { type: "field", label: "购买单位", value: "xxxxx", span: 4 },
-      { type: "field", label: "销售日期", value: "xxxx", span: 4 },
-      { type: "field", label: "单据编号", value: "xxxx", span: 4 },
-      { type: "field", label: "购买方联系人", value: "xxxx", span: 4 },
-      { type: "field", label: "购买方手机", value: "xxxx", span: 4 },
-      { type: "field", label: "销售人员", value: "xxxx", span: 4 },
+      { type: "pair", label: "购买单位", value: "xxxxx", span: 4 },
+      { type: "pair", label: "销售日期", value: "xxxx", span: 4 },
+      { type: "pair", label: "单据编号", value: "xxxx", span: 4 },
+      { type: "pair", label: "购买方联系人", value: "xxxx", span: 4 },
+      { type: "pair", label: "购买方手机", value: "xxxx", span: 4 },
+      { type: "pair", label: "销售人员", value: "xxxx", span: 4 },
     ],
   },
   {
     type: "table",
     head: [
-      { header: true, value: "产品名称" },
-      { header: true, value: "规格" },
-      { header: true, value: "数量" },
-      { header: true, value: "单价" },
-      { header: true, value: "金额" },
+      [
+        { header: true, value: "产品名称" },
+        { header: true, value: "规格" },
+        { header: true, value: "数量" },
+        { header: true, value: "单价" },
+        { header: true, value: "金额" },
+      ],
     ],
     body: [
       ["ha1", "hb1", "hc1", "hd1", "he1"],
@@ -42,23 +45,20 @@ const defaultValue: ContentType = [
       ["hb3", "hc3", "hd3"],
     ],
     foot: [
-      { colSpan: 1, header: true, value: "合计:共3行" },
-      "",
-      "100",
-      "",
-      "200",
+      [{ colSpan: 1, header: true, value: "合计:共3行" }, "", "100", "", "200"],
     ],
   },
   {
     type: "grid",
     content: [
-      { type: "field", label: "出货仓库", value: "xxxx", span: 4 },
-      { type: "field", label: "送货人员", value: "xxxx", span: 4 },
-      { type: "field", label: "大写合计", value: "xxxx", span: 4 },
+      { type: "pair", label: "出货仓库", value: "xxxx", span: 4 },
+      { type: "pair", label: "送货人员", value: "xxxx", span: 4 },
+      { type: "pair", label: "大写合计", value: "xxxx", span: 4 },
     ],
   },
   {
-    type: "footer",
+    type: "grid",
+    id: "footer",
     content: [
       { type: "text", value: "备注：xxxxxxxxxxxxxxxxxxxxxxxxx", span: 12 },
       { type: "text", value: "提示：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" },
@@ -73,16 +73,16 @@ export const Example = () => {
 
   return (
     <div>
-      <textarea
-        spellCheck={false}
-        style={{ width: "100%", height: "400px" }}
-        value={JSON.stringify(value, null, 2)}
-        onChange={(ev) => setValue(JSON.parse(ev.target.value))}
-      />
-
+      {ReactDom.createPortal(<style>{defaultCss}</style>, document.head)}
       <div style={{ width: "100%", border: "1px solid black" }}>
         <InkScripter value={value} />
       </div>
+      <textarea
+        spellCheck={false}
+        style={{ width: "100%", height: "400px", marginTop: 16 }}
+        value={JSON.stringify(value, null, 2)}
+        onChange={(ev) => setValue(JSON.parse(ev.target.value))}
+      />
     </div>
   );
 };

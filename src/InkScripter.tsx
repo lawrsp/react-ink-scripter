@@ -1,19 +1,6 @@
 import clsx from "clsx";
 import { ClassValue } from "clsx";
 
-export type ContentTitleItem = {
-  id?: string;
-  type: "title";
-  value: string;
-};
-
-export type ContentFieldItem = {
-  id?: string;
-  type: "field";
-  label: string;
-  value: string;
-  span?: number;
-};
 export type ContentTextItem = {
   id?: string;
   type: "text";
@@ -21,10 +8,18 @@ export type ContentTextItem = {
   span?: number;
 };
 
-export type ContentContainerItem = {
+export type ContentPairItem = {
   id?: string;
-  type: "grid" | "footer";
-  content: (ContentFieldItem | ContentTextItem)[];
+  type: "pair";
+  label: string;
+  value: string;
+  span?: number;
+};
+
+export type ContentGridItem = {
+  id?: string;
+  type: "grid";
+  content: (ContentPairItem | ContentTextItem)[];
 };
 
 export type ContentTableCellItem =
@@ -40,17 +35,16 @@ export type ContentTableCellItem =
 export type ContentTableItem = {
   id?: string;
   type: "table";
-  head?: ContentTableCellItem[];
+  head?: ContentTableCellItem[][];
   body?: ContentTableCellItem[][];
-  foot?: ContentTableCellItem[];
+  foot?: ContentTableCellItem[][];
 };
 
 export type ContentItemType =
-  | ContentTitleItem
-  | ContentContainerItem
+  | ContentGridItem
   | ContentTableItem
   | ContentTextItem
-  | ContentFieldItem;
+  | ContentPairItem;
 
 export type ContentType = ContentItemType[];
 
@@ -63,26 +57,18 @@ export type TypeWithClassName<T> = T & {
   className?: ClassValue;
 };
 
-const Title = ({ value, id }: ContentTitleItem) => {
-  return (
-    <div id={id} className="inks-title">
-      {value}
-    </div>
-  );
-};
-
 const Container = ({
   id,
   content = [],
   className,
-}: Partial<ContentContainerItem> & { className?: string }) => {
+}: Partial<ContentGridItem> & { className?: string }) => {
   console.log("content =====", content);
   return (
     <div id={id} className={clsx("inks-grid", className)}>
       {content.map((item, idx) => {
         switch (item.type) {
-          case "field":
-            return <Field key={idx} className="inks-grid-item" {...item} />;
+          case "pair":
+            return <Pair key={idx} className="inks-grid-item" {...item} />;
           case "text":
             return <Text key={idx} className="inks-grid-item" {...item} />;
         }
@@ -91,12 +77,8 @@ const Container = ({
   );
 };
 
-const Grid = (props: ContentContainerItem) => {
+const Grid = (props: ContentGridItem) => {
   return <Container {...props} />;
-};
-
-const Footer = (props: ContentContainerItem) => {
-  return <Container {...props} className="inks-footer" />;
 };
 
 const TableCell = ({ item }: { item: ContentTableCellItem }) => {
@@ -133,32 +115,32 @@ const TableRow = ({ cells }: { cells: ContentTableCellItem[] }) => {
   );
 };
 
-const TableHead = (props: { cells?: ContentTableCellItem[] }) => {
-  const { cells } = props;
-  if (!cells || !cells.length) {
+const TableHead = (props: { rows?: ContentTableCellItem[][] }) => {
+  const { rows } = props;
+  if (!rows || !rows.length) {
     return null;
   }
 
   return (
     <thead className="inks-table-head">
-      {cells.map((v, idx) => (
-        <TableCell key={idx} item={v} />
+      {rows.map((v, idx) => (
+        <TableRow key={idx} cells={v} />
       ))}
     </thead>
   );
 };
 
-const TableFoot = (props: { cells?: ContentTableCellItem[] }) => {
-  const { cells } = props;
-  if (!cells || !cells.length) {
+const TableFoot = (props: { rows?: ContentTableCellItem[][] }) => {
+  const { rows } = props;
+  if (!rows || !rows.length) {
     return null;
   }
 
   return (
     <tfoot className="inks-table-foot">
-      {cells.map((v, idx) => (
-        <TableCell key={idx} item={v} />
-      ))}{" "}
+      {rows.map((v, idx) => (
+        <TableRow key={idx} cells={v} />
+      ))}
     </tfoot>
   );
 };
@@ -185,9 +167,9 @@ const Table = (props: ContentTableItem) => {
   }
   return (
     <table id={id} className="inks-table">
-      <TableHead cells={head} />
+      <TableHead rows={head} />
       <TableBody rows={body} />
-      <TableFoot cells={foot} />
+      <TableFoot rows={foot} />
     </table>
   );
 };
@@ -213,25 +195,25 @@ const Text = ({
   );
 };
 
-const Field = ({
+const Pair = ({
   id,
   value,
   label,
   span,
   className,
-}: TypeWithClassName<ContentFieldItem>) => {
+}: TypeWithClassName<ContentPairItem>) => {
   return (
     <div
       id={id}
       className={clsx(
-        "inks-field",
+        "inks-pair",
         span && "inks-grid",
         span && `inks-span-${span}`,
         className
       )}
     >
-      <label className="inks-field-label">{label}:</label>
-      <div className="inks-field-value">{value}</div>
+      <label className="inks-pair-label">{label}:</label>
+      <div className="inks-pair-value">{value}</div>
     </div>
   );
 };
@@ -242,18 +224,14 @@ export const InkScripter = (props: ReactInkScripterProps) => {
     <div className={clsx("inks-root", className)}>
       {value.map((item, index) => {
         switch (item.type) {
-          case "title":
-            return <Title key={index} {...item} />;
-          case "footer":
-            return <Footer key={index} {...item} />;
           case "grid":
             return <Grid key={index} {...item} />;
           case "table":
             return <Table key={index} {...item} />;
           case "text":
             return <Text key={index} {...item} />;
-          case "field":
-            return <Field key={index} {...item} />;
+          case "pair":
+            return <Pair key={index} {...item} />;
         }
       })}
     </div>

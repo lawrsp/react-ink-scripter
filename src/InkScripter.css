@@ -6,14 +6,14 @@
   padding: 4px;
 }
 
-.inks-title{
+.inks-root > #title {
   text-align: center;
   flex: 1 0;
   padding: 16px;
   font-size: 20px;
 }
 
-.inks-footer {
+.inks-root > #footer {
   margin-left: -8px;
 }
 
@@ -41,15 +41,15 @@
   padding: calc(var(--Grid-RowSpacing) / 2) calc(var(--Grid-ColumnSpacing) / 2);
 }
 
-.inks-field {
+.inks-pair {
   display: flex;
   flex-direction: row;
 }
 
-.inks-field-label {
+.inks-pair-label {
 }
 
-.inks-field-value{
+.inks-pair-value{
   margin-left: 16px;
 }
 
