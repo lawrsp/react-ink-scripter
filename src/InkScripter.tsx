@@ -1,8 +1,8 @@
 import clsx from "clsx";
-import { ClassValue } from "clsx";
 
 export type ContentTextItem = {
   id?: string;
+  className?: string;
   type: "text";
   value: string;
   span?: number;
@@ -10,6 +10,7 @@ export type ContentTextItem = {
 
 export type ContentPairItem = {
   id?: string;
+  className?: string;
   type: "pair";
   label: string;
   value: string;
@@ -25,6 +26,7 @@ export type ContentGridItem = {
 export type ContentTableCellItem =
   | {
       id?: string;
+      className?: string;
       header?: boolean;
       rowSpan?: number;
       colSpan?: number;
@@ -53,24 +55,31 @@ export type ReactInkScripterProps = {
   className?: string;
 };
 
-export type TypeWithClassName<T> = T & {
-  className?: ClassValue;
-};
-
 const Container = ({
   id,
   content = [],
   className,
 }: Partial<ContentGridItem> & { className?: string }) => {
-  console.log("content =====", content);
   return (
     <div id={id} className={clsx("inks-grid", className)}>
       {content.map((item, idx) => {
         switch (item.type) {
           case "pair":
-            return <Pair key={idx} className="inks-grid-item" {...item} />;
+            return (
+              <Pair
+                key={idx}
+                {...item}
+                className={clsx("inks-grid-item", item.className)}
+              />
+            );
           case "text":
-            return <Text key={idx} className="inks-grid-item" {...item} />;
+            return (
+              <Text
+                key={idx}
+                {...item}
+                className={clsx("inks-grid-item", item.className)}
+              />
+            );
         }
       })}
     </div>
@@ -174,12 +183,7 @@ const Table = (props: ContentTableItem) => {
   );
 };
 
-const Text = ({
-  id,
-  value,
-  span,
-  className,
-}: TypeWithClassName<ContentTextItem>) => {
+const Text = ({ id, value, span, className }: ContentTextItem) => {
   return (
     <div
       id={id}
@@ -195,13 +199,7 @@ const Text = ({
   );
 };
 
-const Pair = ({
-  id,
-  value,
-  label,
-  span,
-  className,
-}: TypeWithClassName<ContentPairItem>) => {
+const Pair = ({ id, value, label, span, className }: ContentPairItem) => {
   return (
     <div
       id={id}
