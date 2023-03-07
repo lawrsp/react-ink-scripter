@@ -45,13 +45,14 @@ export type ContentTableItem = {
   foot?: ContentTableCellItem[];
 };
 
-export type ContentType = (
+export type ContentItemType =
   | ContentTitleItem
   | ContentContainerItem
   | ContentTableItem
   | ContentTextItem
-  | ContentFieldItem
-)[];
+  | ContentFieldItem;
+
+export type ContentType = ContentItemType[];
 
 export type ReactInkScripterProps = {
   value?: ContentType;
