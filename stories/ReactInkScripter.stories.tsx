@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-import clsx from "clsx";
 import {
   InkScripter,
   ContentType,
@@ -9,7 +8,6 @@ import {
   IFrame,
 } from "../src";
 import "../src/PrinterFrame.css";
-import "./ReactInkScripter.stories.css";
 import defaultCss from "../src/InkScripter.css?inline";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
