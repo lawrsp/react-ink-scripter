@@ -1,4 +1,6 @@
 import clsx from "clsx";
+import { forwardRef } from "react";
+import type { Ref, ForwardRefExoticComponent, RefAttributes } from "react";
 
 export type ContentTextItem = {
   id?: string;
@@ -50,7 +52,7 @@ export type ContentItemType =
 
 export type ContentType = ContentItemType[];
 
-export type ReactInkScripterProps = {
+export type InkScripterProps = {
   value?: ContentType;
   className?: string;
 };
@@ -216,10 +218,12 @@ const Pair = ({ id, value, label, span, className }: ContentPairItem) => {
   );
 };
 
-export const InkScripter = (props: ReactInkScripterProps) => {
+export const InkScripter: ForwardRefExoticComponent<
+  InkScripterProps & RefAttributes<any>
+> = forwardRef((props: InkScripterProps, ref: Ref<any>) => {
   const { value = [], className } = props;
   return (
-    <div className={clsx("inks-root", className)}>
+    <div className={clsx("inks-root", className)} ref={ref}>
       {value.map((item, index) => {
         switch (item.type) {
           case "grid":
@@ -234,6 +238,6 @@ export const InkScripter = (props: ReactInkScripterProps) => {
       })}
     </div>
   );
-};
+});
 
 export default InkScripter;

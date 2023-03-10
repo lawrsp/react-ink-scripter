@@ -1,4 +1,11 @@
-import { ReactNode, useRef, Ref, useImperativeHandle } from "react";
+import { useRef, useImperativeHandle, forwardRef } from "react";
+import type {
+  Ref,
+  ReactNode,
+  ForwardRefExoticComponent,
+  RefAttributes,
+} from "react";
+
 import { createPortal } from "react-dom";
 import clsx from "clsx";
 
@@ -14,11 +21,24 @@ export interface PrinterFrameProps {
   actionRef?: Ref<PrinterActions>;
   src?: string;
   containerId?: string;
+  width?: string | number;
+  height?: string | number;
 }
 
-export const PrinterFrame = (props: PrinterFrameProps) => {
-  const { styleCss, open, className, children, actionRef, src, containerId } =
-    props;
+export const PrinterFrame: ForwardRefExoticComponent<
+  PrinterFrameProps & RefAttributes<any>
+> = forwardRef((props: PrinterFrameProps, ref: Ref<any>) => {
+  const {
+    styleCss,
+    open,
+    className,
+    children,
+    actionRef,
+    src,
+    containerId,
+    width,
+    height,
+  } = props;
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
 
   useImperativeHandle(
@@ -37,6 +57,10 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
     []
   );
 
+  useImperativeHandle(ref, () => {
+    return iframeRef?.current;
+  });
+
   const attachNode = containerId
     ? iframeRef?.current?.contentWindow?.document?.getElementById(containerId)
     : iframeRef?.current?.contentWindow?.document?.body;
@@ -52,6 +76,8 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
         className
       )}
       src={src}
+      width={width}
+      height={height}
     >
       {!!attachStyle &&
         createPortal(
@@ -70,6 +96,6 @@ export const PrinterFrame = (props: PrinterFrameProps) => {
       {!!attachNode && createPortal(children, attachNode)}
     </iframe>
   );
-};
+});
 
 export default PrinterFrame;

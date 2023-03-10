@@ -1,7 +1,15 @@
 import * as React from "react";
 import * as ReactDom from "react-dom";
-import { InkScripter, ContentType, PrinterFrame, PrinterActions } from "../src";
+import clsx from "clsx";
+import {
+  InkScripter,
+  ContentType,
+  PrinterFrame,
+  PrinterActions,
+  IFrame,
+} from "../src";
 import "../src/PrinterFrame.css";
+import "./ReactInkScripter.stories.css";
 import defaultCss from "../src/InkScripter.css?inline";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -122,6 +130,32 @@ export const Print = () => {
         </div>
         <InkScripter value={defaultValue} />
       </PrinterFrame>
+    </div>
+  );
+};
+
+export const AutoHeightFrame = () => {
+  const [node, setNode] = React.useState(null);
+
+  const [open, setOpen] = React.useState(false);
+
+  const [height, setHeight] = React.useState<number | undefined>();
+
+  React.useEffect(() => {
+    const rect = node?.getBoundingClientRect();
+    if (rect) {
+      setHeight(rect.height + 16);
+    } else {
+      setHeight(16);
+    }
+  }, [node]);
+
+  return (
+    <div>
+      <button onClick={() => setOpen((old) => !old)}>toggle open</button>
+      <IFrame styleCss={defaultCss} width="100%" height={height}>
+        {open && <InkScripter value={defaultValue} ref={setNode} />}
+      </IFrame>
     </div>
   );
 };
