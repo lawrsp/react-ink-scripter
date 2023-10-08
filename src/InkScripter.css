@@ -4,17 +4,18 @@
   flex-direction: column;
   overflow: hidden;
   padding: 4px;
+  font-size: 14px;
 }
 
 .inks-root > #title {
   text-align: center;
   flex: 1 0;
   padding: 16px;
-  font-size: 20px;
+  font-size: 28px;
 }
 
 .inks-root > #footer {
-  margin-left: -8px;
+  margin: 0;
 }
 
 .inks-grid {
@@ -96,9 +97,8 @@
   padding: 0;
   text-align: left;
   border-spacing: 0;
-
-  border-top: var(--Border-Props);
-  border-left: var(--Border-Props);
+  border-collapse: collapse;
+  border: var(--Border-Props);
 }
 
 
@@ -115,7 +115,6 @@
 .inks-cell {
   padding: 8px 4px;
   margin: 0;
-  border-right: var(--Border-Props);
-  border-bottom: var(--Border-Props);
+  border: var(--Border-Props);
 }
 

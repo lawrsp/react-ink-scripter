@@ -189,12 +189,7 @@ const Text = ({ id, value, span, className }: ContentTextItem) => {
   return (
     <div
       id={id}
-      className={clsx(
-        "inks-text",
-        span && "inks-grid",
-        span && `inks-span-${span}`,
-        className
-      )}
+      className={clsx("inks-text", span && `inks-span-${span}`, className)}
     >
       {value}
     </div>
@@ -205,12 +200,7 @@ const Pair = ({ id, value, label, span, className }: ContentPairItem) => {
   return (
     <div
       id={id}
-      className={clsx(
-        "inks-pair",
-        span && "inks-grid",
-        span && `inks-span-${span}`,
-        className
-      )}
+      className={clsx("inks-pair", span && `inks-span-${span}`, className)}
     >
       <label className="inks-pair-label">{label}:</label>
       <div className="inks-pair-value">{value}</div>
