@@ -29,8 +29,9 @@ jobs:
         with:
           token: ${{secrets.NPM_PUBLISH_TOKEN}}
           dry-run: false
+          ignore-scripts: false
       - name: Post-publish
-        if: steps.publish.outputs.type != 'none'
+        if: ${{ steps.publish.outputs.type }}
         run: |
           echo "Published ${{ steps.publish.outputs.type }} version: ${{ steps.publish.outputs.version }}"
       - name: Publish skipped
