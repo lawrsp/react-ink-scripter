@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, useCallback } from 'react';
+import { useState, useLayoutEffect, useCallback, useMemo } from 'react';
 
 export type PageConfig = {
   width: number;
@@ -19,11 +19,13 @@ export const pix2mm = (pix: number) => Math.round(pix * 0.2645833333);
 export type usePagePrintProps = {
   open?: boolean;
   pageConfig: Partial<PageConfig>;
+  style?: string;
 };
 
 export const usePagePrint = <T extends Element>({
   open,
   pageConfig,
+  style,
 }: usePagePrintProps) => {
   const [page, setPage] = useState<PageConfig>({
     width: pageConfig.width || 0,
@@ -66,7 +68,32 @@ export const usePagePrint = <T extends Element>({
     return pageNode?.innerHTML || '';
   }, [pageNode]);
 
-  return { setPageNodeRef, page, getPageContent, pageNode };
+  const pageStyle = useMemo(() => {
+    const { width, height, marginLeft, marginRight, marginTop } = page;
+
+    const extraStyle = `
+html {
+margin: 0;
+padding: 0;
+width: ${width}mm;
+height: ${height}mm
+}
+
+body {
+width: ${width}mm;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+padding-left: ${marginLeft}mm;
+padding-right: ${marginRight}mm;
+padding-top: ${marginTop}mm;
+}
+`;
+
+    return style + '\n' + extraStyle;
+  }, [page, style, page]);
+
+  return { setPageNodeRef, page, getPageContent, pageNode, pageStyle };
 };
 
 export default usePagePrint;

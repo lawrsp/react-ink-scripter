@@ -1,6 +1,6 @@
 {
   "name": "react-ink-scripter",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "a react component for generate page to print",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
