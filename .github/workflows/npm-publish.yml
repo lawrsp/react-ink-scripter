@@ -25,6 +25,7 @@ jobs:
       - id: Publish
         name: Publish to NPM
         uses: JS-DevTools/npm-publish@v1
+        strategy: upgrade
         with:
           token: ${{secrets.NPM_PUBLISH_TOKEN}}
           dry-run: false
