@@ -28,10 +28,10 @@ export const usePagePrint = <T extends Element>({
   const [page, setPage] = useState<PageConfig>({
     width: pageConfig.width || 0,
     height: pageConfig.height || 0,
-    marginLeft: 0,
-    marginRight: 0,
-    marginTop: 0,
-    marginBottom: 0,
+    marginLeft: pageConfig.marginLeft || 0,
+    marginRight: pageConfig.marginRight || 0,
+    marginTop: pageConfig.marginTop || 0,
+    marginBottom: pageConfig.marginBottom || 0,
   });
 
   const [pageNode, setPageNode] = useState<T>();
