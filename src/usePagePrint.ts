@@ -62,7 +62,11 @@ export const usePagePrint = <T extends Element>({
     }));
   }, [pageNode, open, pageConfig]);
 
-  return { setPageNodeRef, page };
+  const getPageContent = useCallback(() => {
+    return pageNode?.innerHTML || '';
+  }, [pageNode]);
+
+  return { setPageNodeRef, page, getPageContent, pageNode };
 };
 
 export default usePagePrint;
