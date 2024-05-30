@@ -1,13 +1,8 @@
-import { useRef, useImperativeHandle, forwardRef } from "react";
-import type {
-  Ref,
-  ReactNode,
-  ForwardRefExoticComponent,
-  RefAttributes,
-} from "react";
+import { useRef, useImperativeHandle, forwardRef } from 'react';
+import type { Ref, ReactNode, ForwardRefExoticComponent, RefAttributes } from 'react';
 
-import { createPortal } from "react-dom";
-import clsx from "clsx";
+import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 
 export interface PrinterActions {
   print: () => void;
@@ -70,11 +65,7 @@ export const PrinterFrame: ForwardRefExoticComponent<
   return (
     <iframe
       ref={iframeRef}
-      className={clsx(
-        "inks-iframe-root",
-        !!open && "inks-iframe-root-open",
-        className
-      )}
+      className={clsx('inks-iframe-root', !!open && 'inks-iframe-root-open', className)}
       src={src}
       width={width}
       height={height}

@@ -1,11 +1,11 @@
-import clsx from "clsx";
-import { forwardRef } from "react";
-import type { Ref, ForwardRefExoticComponent, RefAttributes } from "react";
+import clsx from 'clsx';
+import { forwardRef } from 'react';
+import type { Ref, ForwardRefExoticComponent, RefAttributes } from 'react';
 
 export type ContentTextItem = {
   id?: string;
   className?: string;
-  type: "text";
+  type: 'text';
   value: string;
   span?: number;
 };
@@ -13,7 +13,7 @@ export type ContentTextItem = {
 export type ContentPairItem = {
   id?: string;
   className?: string;
-  type: "pair";
+  type: 'pair';
   label: string;
   value: string;
   span?: number;
@@ -21,7 +21,7 @@ export type ContentPairItem = {
 
 export type ContentGridItem = {
   id?: string;
-  type: "grid";
+  type: 'grid';
   content: (ContentPairItem | ContentTextItem)[];
 };
 
@@ -38,7 +38,7 @@ export type ContentTableCellItem =
 
 export type ContentTableItem = {
   id?: string;
-  type: "table";
+  type: 'table';
   head?: ContentTableCellItem[][];
   body?: ContentTableCellItem[][];
   foot?: ContentTableCellItem[][];
@@ -63,23 +63,23 @@ const Container = ({
   className,
 }: Partial<ContentGridItem> & { className?: string }) => {
   return (
-    <div id={id} className={clsx("inks-grid", className)}>
+    <div id={id} className={clsx('inks-grid', className)}>
       {content.map((item, idx) => {
         switch (item.type) {
-          case "pair":
+          case 'pair':
             return (
               <Pair
                 key={idx}
                 {...item}
-                className={clsx("inks-grid-item", item.className)}
+                className={clsx('inks-grid-item', item.className)}
               />
             );
-          case "text":
+          case 'text':
             return (
               <Text
                 key={idx}
                 {...item}
-                className={clsx("inks-grid-item", item.className)}
+                className={clsx('inks-grid-item', item.className)}
               />
             );
         }
@@ -93,7 +93,7 @@ const Grid = (props: ContentGridItem) => {
 };
 
 const TableCell = ({ item }: { item: ContentTableCellItem }) => {
-  if (typeof item === "string") {
+  if (typeof item === 'string') {
     return <td className="inks-cell">{item}</td>;
   }
 
@@ -187,10 +187,7 @@ const Table = (props: ContentTableItem) => {
 
 const Text = ({ id, value, span, className }: ContentTextItem) => {
   return (
-    <div
-      id={id}
-      className={clsx("inks-text", span && `inks-span-${span}`, className)}
-    >
+    <div id={id} className={clsx('inks-text', span && `inks-span-${span}`, className)}>
       {value}
     </div>
   );
@@ -198,10 +195,7 @@ const Text = ({ id, value, span, className }: ContentTextItem) => {
 
 const Pair = ({ id, value, label, span, className }: ContentPairItem) => {
   return (
-    <div
-      id={id}
-      className={clsx("inks-pair", span && `inks-span-${span}`, className)}
-    >
+    <div id={id} className={clsx('inks-pair', span && `inks-span-${span}`, className)}>
       <label className="inks-pair-label">{label}:</label>
       <div className="inks-pair-value">{value}</div>
     </div>
@@ -213,16 +207,16 @@ export const InkScripter: ForwardRefExoticComponent<
 > = forwardRef((props: InkScripterProps, ref: Ref<any>) => {
   const { value = [], className } = props;
   return (
-    <div className={clsx("inks-root", className)} ref={ref}>
+    <div className={clsx('inks-root', className)} ref={ref}>
       {value.map((item, index) => {
         switch (item.type) {
-          case "grid":
+          case 'grid':
             return <Grid key={index} {...item} />;
-          case "table":
+          case 'table':
             return <Table key={index} {...item} />;
-          case "text":
+          case 'text':
             return <Text key={index} {...item} />;
-          case "pair":
+          case 'pair':
             return <Pair key={index} {...item} />;
         }
       })}
