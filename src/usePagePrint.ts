@@ -36,7 +36,7 @@ export const usePagePrint = <T extends Element>({
 
   const [pageNode, setPageNode] = useState<T>();
 
-  const setNodeRef = useCallback((node: T) => {
+  const setPageNodeRef = useCallback((node: T) => {
     setPageNode(node);
   }, []);
 
@@ -62,7 +62,7 @@ export const usePagePrint = <T extends Element>({
     }));
   }, [pageNode, open, pageConfig]);
 
-  return { setNodeRef, page };
+  return { setPageNodeRef, page };
 };
 
 export default usePagePrint;
