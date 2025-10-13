@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 20
           package-manager-cache: false
-      - run: Install yarn
+      - name: Install yarn
         run: corepack enable
       - name: Install Dependencies
         run: yarn install
