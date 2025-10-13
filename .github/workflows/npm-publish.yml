@@ -19,7 +19,7 @@ jobs:
           node-version: 20
           package-manager-cache: false
       - run: Install yarn
-        run: npm install -g corepack
+        run: corepack enable
       - name: Install Dependencies
         run: yarn install
       - name: Build
