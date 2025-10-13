@@ -17,7 +17,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 20
-      - run: yarn version
+      - run: Install yarn
+        run: npm install -g corepack
       - name: Install Dependencies
         run: yarn install
       - name: Build
