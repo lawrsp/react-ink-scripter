@@ -97,17 +97,27 @@ const TableCell = ({ item }: { item: ContentTableCellItem }) => {
     return <td className="inks-cell">{item}</td>;
   }
 
-  const { id, header, colSpan, rowSpan, value } = item;
+  const { id, header, colSpan, rowSpan, value, className } = item;
   if (header) {
     return (
-      <th id={id} className="inks-cell" colSpan={colSpan} rowSpan={rowSpan}>
+      <th
+        id={id}
+        className={clsx('inks-cell', className)}
+        colSpan={colSpan}
+        rowSpan={rowSpan}
+      >
         {value}
       </th>
     );
   }
 
   return (
-    <td id={id} className="inks-cell" colSpan={colSpan} rowSpan={rowSpan}>
+    <td
+      id={id}
+      className={clsx('inks-cell', className)}
+      colSpan={colSpan}
+      rowSpan={rowSpan}
+    >
       {value}
     </td>
   );
