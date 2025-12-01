@@ -1,14 +1,17 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { InkScripter, ContentType, PrinterFrame, PrinterActions, IFrame } from '../src';
-import '../src/PrinterFrame.css';
 import defaultCss from '../src/InkScripter.css?inline';
+import '../src/PrinterFrame.css';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
+const meta = {
   title: 'Example/InkScripter',
   component: InkScripter,
+  tags: ['autodocs'], // 👈 Add this tag
 };
+
+export default meta;
 
 const defaultValue: ContentType = [
   { type: 'text', id: 'title', value: '销售单据' },

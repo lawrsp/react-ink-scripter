@@ -1,5 +1,5 @@
 import { useRef, forwardRef, useImperativeHandle, useMemo } from 'react';
-import type { Ref, ReactNode, ForwardRefExoticComponent, RefAttributes } from 'react';
+import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 
 export interface IFrameProps {
@@ -10,10 +10,10 @@ export interface IFrameProps {
   height?: string | number;
 }
 
-export const IFrame: ForwardRefExoticComponent<IFrameProps & RefAttributes<any>> =
-  forwardRef((props: IFrameProps, ref: Ref<HTMLIFrameElement | null>) => {
+export const IFrame = forwardRef<HTMLIFrameElement | undefined, IFrameProps>(
+  (props, ref) => {
     const { styleCss, className, children, width, height } = props;
-    const iframeRef = useRef<HTMLIFrameElement | null>(null);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
     const [frameWidth, frameHeight] = useMemo(() => {
       return [width, height];
@@ -27,7 +27,7 @@ export const IFrame: ForwardRefExoticComponent<IFrameProps & RefAttributes<any>>
     useImperativeHandle(
       ref,
       () => {
-        return iframeRef?.current;
+        return iframeRef?.current || undefined;
       },
       []
     );
@@ -43,4 +43,5 @@ export const IFrame: ForwardRefExoticComponent<IFrameProps & RefAttributes<any>>
         {attachHead && createPortal(<style>{styleCss}</style>, attachHead)}
       </iframe>
     );
-  });
+  }
+);
