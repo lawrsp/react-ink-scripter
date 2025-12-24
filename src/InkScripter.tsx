@@ -19,10 +19,18 @@ export type ContentPairItem = {
   span?: number;
 };
 
+export type ContentLineItem = {
+  id?: string;
+  type: 'line';
+  span?: number;
+  className?: string;
+  content: (ContentPairItem | ContentTextItem)[];
+};
+
 export type ContentGridItem = {
   id?: string;
   type: 'grid';
-  content: (ContentPairItem | ContentTextItem)[];
+  content: (ContentPairItem | ContentTextItem | ContentLineItem)[];
 };
 
 export type ContentTableCellItem =
@@ -48,7 +56,8 @@ export type ContentItemType =
   | ContentGridItem
   | ContentTableItem
   | ContentTextItem
-  | ContentPairItem;
+  | ContentPairItem
+  | ContentLineItem;
 
 export type ContentType = ContentItemType[];
 
@@ -61,26 +70,28 @@ const Container = ({
   id,
   content = [],
   className,
-}: Partial<ContentGridItem> & { className?: string }) => {
+  itemClass,
+}: {
+  id?: string;
+  content: (ContentPairItem | ContentTextItem | ContentLineItem)[];
+  className?: string;
+  itemClass?: string;
+}) => {
   return (
-    <div id={id} className={clsx('inks-grid', className)}>
+    <div id={id} className={className}>
       {content.map((item, idx) => {
         switch (item.type) {
           case 'pair':
             return (
-              <Pair
-                key={idx}
-                {...item}
-                className={clsx('inks-grid-item', item.className)}
-              />
+              <Pair key={idx} {...item} className={clsx(itemClass, item.className)} />
             );
           case 'text':
             return (
-              <Text
-                key={idx}
-                {...item}
-                className={clsx('inks-grid-item', item.className)}
-              />
+              <Text key={idx} {...item} className={clsx(itemClass, item.className)} />
+            );
+          case 'line':
+            return (
+              <Line key={idx} {...item} className={clsx(itemClass, item.className)} />
             );
         }
       })}
@@ -89,7 +100,17 @@ const Container = ({
 };
 
 const Grid = (props: ContentGridItem) => {
-  return <Container {...props} />;
+  return <Container className="inks-grid" itemClass="inks-grid-item" {...props} />;
+};
+
+const Line = ({ id, content, span, className }: ContentLineItem) => {
+  return (
+    <Container
+      id={id}
+      className={clsx('inks-line', span && `inks-span-${span}`, className)}
+      content={content}
+    />
+  );
 };
 
 const TableCell = ({ item }: { item: ContentTableCellItem }) => {
@@ -228,6 +249,8 @@ export const InkScripter: ForwardRefExoticComponent<
             return <Text key={index} {...item} />;
           case 'pair':
             return <Pair key={index} {...item} />;
+          case 'line':
+            return <Line key={index} {...item} />;
         }
       })}
     </div>

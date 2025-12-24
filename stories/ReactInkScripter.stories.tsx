@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { InkScripter, ContentType, PrinterFrame, PrinterActions, IFrame } from '../src';
-import defaultCss from '../src/InkScripter.css?inline';
-import '../src/PrinterFrame.css';
+
+import defaultCss from './InkScripter.css?inline';
+import './PrinterFrame.css';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -18,12 +19,12 @@ const defaultValue: ContentType = [
   {
     type: 'grid',
     content: [
-      { type: 'pair', label: '购买单位', value: 'xxxxx', span: 4 },
-      { type: 'pair', label: '销售日期', value: 'xxxx', span: 4 },
-      { type: 'pair', label: '单据编号', value: 'xxxx', span: 4 },
-      { type: 'pair', label: '购买方联系人', value: 'xxxx', span: 4 },
-      { type: 'pair', label: '购买方手机', value: 'xxxx', span: 4 },
-      { type: 'pair', label: '销售人员', value: 'xxxx', span: 4 },
+      { type: 'pair', label: '购买单位', value: 'xxxxx', span: 8 },
+      { type: 'pair', label: '销售日期', value: 'xxxx', span: 8 },
+      { type: 'pair', label: '单据编号', value: 'xxxx', span: 8 },
+      { type: 'pair', label: '购买方联系人', value: 'xxxx', span: 8 },
+      { type: 'pair', label: '购买方手机', value: 'xxxx', span: 8 },
+      { type: 'pair', label: '销售人员', value: 'xxxx', span: 8 },
     ],
   },
   {
@@ -54,19 +55,25 @@ const defaultValue: ContentType = [
   {
     type: 'grid',
     content: [
-      { type: 'pair', label: '出货仓库', value: 'xxxx', span: 4 },
-      { type: 'pair', label: '送货人员', value: 'xxxx', span: 4 },
-      { type: 'pair', label: '大写合计', value: 'xxxx', span: 4 },
+      { type: 'pair', label: '出货仓库', value: 'xxxx', span: 8 },
+      { type: 'pair', label: '送货人员', value: 'xxxx', span: 8 },
+      { type: 'pair', label: '大写合计', value: 'xxxx', span: 8 },
     ],
   },
   {
     type: 'grid',
     id: 'footer',
     content: [
-      { type: 'text', value: '备注：xxxxxxxxxxxxxxxxxxxxxxxxx', span: 12 },
-      { type: 'text', value: '提示：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' },
-      { type: 'text', value: '服务电话：xxxxxxxxxx' },
-      { type: 'text', value: '仓库地址：xxxxxxxxxx' },
+      { type: 'text', value: '备注：xxxxxxxxxxxxxxxxxxxxxxxxx', span: 24 },
+      {
+        type: 'line',
+        span: 24,
+        content: [
+          { type: 'text', value: '提示：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' },
+          { type: 'text', value: '服务电话：xxxxxxxxxx' },
+          { type: 'text', value: '仓库地址：xxxxxxxxxx' },
+        ],
+      },
     ],
   },
 ];
