@@ -66,7 +66,7 @@ const defaultValue: ContentType = [
     content: [
       { type: 'text', value: '备注：xxxxxxxxxxxxxxxxxxxxxxxxx', span: 24 },
       {
-        type: 'compose',
+        type: 'box',
         className: 'color-blue',
         span: 24,
         content: [

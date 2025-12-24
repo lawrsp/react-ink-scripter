@@ -19,9 +19,9 @@ export type ContentPairItem = {
   span?: number;
 };
 
-export type ContentComposeItem = {
+export type ContentBoxItem = {
   id?: string;
-  type: 'compose';
+  type: 'box';
   span?: number;
   className?: string;
   content: (ContentPairItem | ContentTextItem)[];
@@ -30,7 +30,7 @@ export type ContentComposeItem = {
 export type ContentGridItem = {
   id?: string;
   type: 'grid';
-  content: (ContentPairItem | ContentTextItem | ContentComposeItem)[];
+  content: (ContentPairItem | ContentTextItem | ContentBoxItem)[];
 };
 
 export type ContentTableCellItem =
@@ -57,7 +57,7 @@ export type ContentItemType =
   | ContentTableItem
   | ContentTextItem
   | ContentPairItem
-  | ContentComposeItem;
+  | ContentBoxItem;
 
 export type ContentType = ContentItemType[];
 
@@ -73,7 +73,7 @@ const Container = ({
   itemClass,
 }: {
   id?: string;
-  content: (ContentPairItem | ContentTextItem | ContentComposeItem)[];
+  content: (ContentPairItem | ContentTextItem | ContentBoxItem)[];
   className?: string;
   itemClass?: string;
 }) => {
@@ -89,9 +89,9 @@ const Container = ({
             return (
               <Text key={idx} {...item} className={clsx(itemClass, item.className)} />
             );
-          case 'compose':
+          case 'box':
             return (
-              <Compose key={idx} {...item} className={clsx(itemClass, item.className)} />
+              <Box key={idx} {...item} className={clsx(itemClass, item.className)} />
             );
         }
       })}
@@ -103,11 +103,11 @@ const Grid = (props: ContentGridItem) => {
   return <Container className="inks-grid" itemClass="inks-grid-item" {...props} />;
 };
 
-const Compose = ({ id, content, span, className }: ContentComposeItem) => {
+const Box = ({ id, content, span, className }: ContentBoxItem) => {
   return (
     <Container
       id={id}
-      className={clsx('inks-compose', span && `inks-span-${span}`, className)}
+      className={clsx('inks-box', span && `inks-span-${span}`, className)}
       content={content}
     />
   );
@@ -249,8 +249,8 @@ export const InkScripter: ForwardRefExoticComponent<
             return <Text key={index} {...item} />;
           case 'pair':
             return <Pair key={index} {...item} />;
-          case 'compose':
-            return <Compose key={index} {...item} />;
+          case 'box':
+            return <Box key={index} {...item} />;
         }
       })}
     </div>
