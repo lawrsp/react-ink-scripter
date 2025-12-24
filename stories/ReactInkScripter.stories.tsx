@@ -66,7 +66,8 @@ const defaultValue: ContentType = [
     content: [
       { type: 'text', value: '备注：xxxxxxxxxxxxxxxxxxxxxxxxx', span: 24 },
       {
-        type: 'line',
+        type: 'compose',
+        className: 'color-blue',
         span: 24,
         content: [
           { type: 'text', value: '提示：xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' },
@@ -87,6 +88,7 @@ export const Example = () => {
         <style>
           {defaultCss}
           {'.table-col-index { color: red; width: 40px;}'}
+          {'.color-blue { color: blue; }'}
         </style>,
         document.head
       )}
